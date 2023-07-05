@@ -21,15 +21,23 @@ const displayToDos = () => {
     const completedCell = document.createElement('td');
     completedCell.textContent = item.completed;
     const deleteCell = document.createElement('td'); 
+    const updateCell = document.createElement('td'); 
+
+    
 
     const deleteButton = document.createElement('button'); 
+    const updateButton=document.createElement('button')
     deleteButton.textContent = 'Delete';
+    updateButton.textContent='Update'
     deleteButton.addEventListener('click', () => deleteTask(item.id)); 
+    updateButton.addEventListener('click',()=>updateTask(item.id))
+    updateCell.appendChild(updateButton)
     deleteCell.appendChild(deleteButton);
     row.appendChild(idCell);
     row.appendChild(todoCell);
     row.appendChild(completedCell);
     row.appendChild(deleteCell);
+    row.appendChild(updateCell)
     tableBody.appendChild(row);
   });
 };
@@ -51,6 +59,14 @@ const addTask = event => {
 
   document.getElementById('taskTitle').value = '';
 };
+const updateTask = id => {
+  const newTaskTitle = prompt('update a todo:');
+  const taskIndex = todos.findIndex(item => item.id === id);
+  if (taskIndex !== -1) {
+      todos[taskIndex].todo = newTaskTitle;
+      displayToDos();
+  }
+};
 
 const deleteTask = id => {
   todos = todos.filter(item => item.id !== id); 
@@ -65,5 +81,5 @@ getToDos()
     displayToDos(); 
   })
   .catch(error => {
-    console.error('Error fetching todos:', error);
+    console.error('failed to fetch a todo:', error);
   });

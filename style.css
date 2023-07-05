@@ -1,6 +1,8 @@
-
-   
-    .todo-table {
+#mytodo{
+  text-align: center;
+  font-style: italic;
+}
+.todo-table {
       border-collapse: collapse;
       width: 100%;
     }
